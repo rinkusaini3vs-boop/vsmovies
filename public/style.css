@@ -1,4 +1,4 @@
-/* --- ROOT VARIABLES --- */
+/* ================= ROOT ================= */
 :root {
     --primary: #00f7ff;
     --secondary: #bc13fe;
@@ -6,7 +6,7 @@
     --bg-dark: #050508;
     --glass: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
-    --text-glow: 0 0 20px rgba(0, 247, 255, 0.5);
+    --text-glow: 0 0 20px rgba(0, 247, 255, 0.6);
 }
 
 body {
@@ -15,160 +15,187 @@ body {
     font-family: 'Outfit', sans-serif;
     margin: 0;
     overflow-x: hidden;
-    cursor: none; /* Custom cursor */
+    cursor: none;
 }
 
-/* --- 1. INTERACTIVE PARALLAX UNIVERSE BG --- */
-.universe-bg {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -1;
-    background: radial-gradient(circle at center, #111, #000);
-    overflow: hidden;
-}
-
-.stars-layer {
-    position: absolute; width: 120%; height: 120%; top: -10%; left: -10%;
-    background-image: 
-        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
-        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
-        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
-    background-size: 550px 550px, 350px 350px, 250px 250px;
-    background-position: 0 0, 40px 60px, 130px 270px;
-    opacity: 0.8;
-}
-
-.nebula-layer {
-    position: absolute; top: 50%; left: 50%; width: 100vw; height: 100vw;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(188, 19, 254, 0.15) 0%, rgba(0, 247, 255, 0.05) 40%, transparent 70%);
-    filter: blur(60px);
-    pointer-events: none;
-}
-
-/* --- 2. PREMIUM HEADER (Floating) --- */
+/* ================= HEADER ================= */
 .floating-header {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 0 25px; height: 70px;
-    width: 88%; left: 6%; right: 6%;
-    background: rgba(10, 10, 10, 0.6);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    height: 70px;
+    width: 88%;
+    left: 6%;
+    background: rgba(10,10,10,0.6);
     backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
     border-radius: 20px;
-    position: fixed; top: 20px; z-index: 100;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    position: fixed;
+    top: 20px;
+    z-index: 100;
+    border: 1px solid var(--glass-border);
+}
+
+.header-icon {
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* ================= LUCIDE ICONS ================= */
+.lucide-icon {
+    width: 22px;
+    height: 22px;
+    stroke-width: 2;
+    color: #ccc;
+    transition: 0.35s ease;
+}
+
+.header-icon:hover .lucide-icon {
+    color: var(--primary);
+    transform: scale(1.25) rotate(4deg);
+    filter: drop-shadow(0 0 14px rgba(0,247,255,0.8));
+}
+
+.logo-icon {
+    width: 26px;
+    height: 26px;
+    color: var(--secondary);
+}
+
+/* ================= HERO ================= */
+.hero-section {
+    padding-top: 130px;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #00f7ff, #bc13fe);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* ================= SWIPER ================= */
+.swiper {
+    padding: 60px 0;
+}
+
+.swiper-slide {
+    width: 280px;
+    height: 420px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+.card-bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* PLAY ICON */
+.play-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.play-lucide {
+    width: 68px;
+    height: 68px;
+    color: white;
+    opacity: 0.9;
     transition: 0.4s ease;
-    animation: slideDown 1s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.header-icon { 
-    font-size: 1.4rem; padding: 10px; cursor: pointer; color: #ccc; 
-    transition: 0.3s; position: relative;
+.swiper-slide:hover .play-lucide {
+    transform: scale(1.35);
+    color: var(--primary);
+    filter: drop-shadow(0 0 30px rgba(0,247,255,1));
 }
-.header-icon:hover { color: var(--primary); transform: scale(1.1); text-shadow: var(--text-glow); }
 
-.logo { 
-    font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; 
-    display: flex; align-items: center; gap: 8px;
+/* ================= BENTO ================= */
+.folder-section {
+    padding: 80px 20px;
+    text-align: center;
 }
-.logo span { color: var(--primary); }
-.logo i { color: var(--secondary); font-size: 1.6rem; }
 
-/* --- 3. BENTO GRID (Premium Cards) --- */
-.folder-section { padding: 60px 20px; text-align: center; }
-.bento-grid { 
-    display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; 
-    max-width: 1200px; margin: 0 auto; 
-    perspective: 1000px; /* For 3D Tilt */
+.bento-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
 }
 
 .bento-card {
-    position: relative; width: 280px; height: 340px;
-    background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
-    backdrop-filter: blur(30px);
-    border: 1px solid var(--glass-border);
+    width: 280px;
+    height: 340px;
     border-radius: 24px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-decoration: none; color: white;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    transform-style: preserve-3d;
-    animation: fadeInUp 0.8s ease-out backwards;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.45s ease;
 }
-
-/* Staggered Entry Animation */
-.bento-card:nth-child(1) { animation-delay: 0.2s; }
-.bento-card:nth-child(2) { animation-delay: 0.4s; }
-.bento-card:nth-child(3) { animation-delay: 0.6s; }
 
 .card-icon-wrapper {
-    width: 100px; height: 100px; border-radius: 50%;
-    background: rgba(0,0,0,0.3);
-    display: flex; align-items: center; justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.35);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
-    transition: 0.5s;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-.bento-icon { font-size: 3rem; color: #fff; transition: 0.5s; }
-
-/* Premium Glows */
-.bollywood-glow i { color: #ff0055; }
-.trending-glow i { color: #ff9900; }
-.secret-glow i { color: #00f7ff; }
-
-/* Hover Effects */
-.bento-card:hover .card-icon-wrapper { transform: translateZ(30px) scale(1.1); box-shadow: 0 0 40px var(--primary); }
-.bento-card:hover .bento-text { transform: translateZ(20px); }
-.card-arrow { position: absolute; top: 20px; right: 20px; opacity: 0; transition: 0.3s; }
-.bento-card:hover .card-arrow { opacity: 1; transform: translate(5px, -5px); }
-
-/* --- 4. SWIPER SLIDER (Immersive) --- */
-.hero-section { text-align: center; padding-top: 120px; }
-.hero-title { font-size: 3.5rem; font-weight: 800; margin-bottom: 10px; }
-.gradient-text { background: linear-gradient(to right, #00f7ff, #bc13fe); -webkit-background-clip: text; color: transparent; }
-
-.swiper { width: 100%; padding: 50px 0; perspective: 1000px; }
-.swiper-slide { 
-    width: 280px; height: 420px; 
-    border-radius: 20px; overflow: hidden; 
-    box-shadow: 0 15px 50px rgba(0,0,0,0.5);
-    transition: 0.5s;
-    border: 1px solid rgba(255,255,255,0.1);
+.bento-icon {
+    width: 48px;
+    height: 48px;
+    transition: 0.45s ease;
 }
 
-.swiper-slide-active {
-    box-shadow: 0 0 50px rgba(0, 247, 255, 0.4);
-    border-color: var(--primary);
-}
-.card-bg-video { width: 100%; height: 100%; object-fit: cover; }
-
-/* --- 5. SOCIAL DOCK (Floating & Glowing) --- */
-.social-section { text-align: center; padding: 40px; }
-.social-dock { 
-    display: inline-flex; gap: 20px; padding: 15px 30px; 
-    background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); 
-    border-radius: 50px; border: 1px solid var(--glass-border); 
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    animation: floatDock 6s infinite ease-in-out;
+.bento-card:hover {
+    transform: translateY(-10px) scale(1.04);
+    box-shadow: 0 0 60px rgba(0,247,255,0.25);
 }
 
-.dock-icon { 
-    font-size: 2rem; width: 60px; height: 60px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 50%; background: rgba(255,255,255,0.05);
-    color: white; text-decoration: none; transition: 0.3s;
+.bento-card:hover .bento-icon {
+    transform: scale(1.35) rotate(6deg);
+    color: var(--primary);
+    filter: drop-shadow(0 0 25px rgba(0,247,255,0.9));
 }
-.dock-icon:hover { transform: translateY(-10px) scale(1.1); background: white; color: black; box-shadow: 0 0 20px white; }
 
-/* Animations Keyframes */
-@keyframes slideDown { from { transform: translateY(-100px); } to { transform: translateY(0); } }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes floatDock { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+/* ================= CURSOR ================= */
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+}
 
-/* Cursor */
-.cursor-dot { width: 8px; height: 8px; background: white; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; }
-.cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.5); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: width 0.1s, height 0.1s; transform: translate(-50%, -50%); }
-
-/* Footer */
-footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 40px; text-align: center; margin-top: 50px; }
-.footer-links a { margin: 0 15px; color: #aaa; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
-.footer-links a:hover { color: var(--primary); }
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+}
