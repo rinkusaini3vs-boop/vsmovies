@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Downloads</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <video autoplay muted loop id="bg-video">
+        <source src="background2.mp4" type="video/mp4">
+    </video>
+
+    <div style="padding: 20px; display: flex; align-items: center; animation: fadeInDown 1s;">
+        <a href="index.html" class="download-btn" style="margin:0; background: rgba(255,255,255,0.2); color: white;">← Home</a>
+        <h2 id="cat-title" style="flex-grow: 1; margin: 0; text-shadow: 0 0 15px #00f260;">LOADING...</h2>
+    </div>
+
+    <div id="video-list" class="video-grid">
+        </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const category = params.get('cat') || 'all';
+        document.getElementById('cat-title').innerText = category.toUpperCase();
+
+        async function fetchVideos() {
+            const container = document.getElementById('video-list');
+            container.innerHTML = '<h3>Searching Files...</h3>';
+
+            try {
+                const res = await fetch(`/api/movies?category=${category}`);
+                const files = await res.json();
+                container.innerHTML = '';
+
+                if (files.length === 0) {
+                    container.innerHTML = '<h3 style="background:rgba(0,0,0,0.5); padding:20px; border-radius:10px;">No Videos Found 😕</h3>';
+                    return;
+                }
+
+                // Loop through files with delay for animation
+                files.forEach((file, index) => {
+                    const mbSize = (file.size / (1024*1024)).toFixed(1);
+                    const div = document.createElement('div');
+                    div.className = 'file-glass';
+                    
+                    // Staggered Animation (Ek ke baad ek aayenge)
+                    div.style.animationDelay = `${index * 0.1}s`; 
+
+                    div.innerHTML = `
+                        <video controls controlsList="nodownload">
+                            <source src="${file.streamUrl}" type="video/mp4">
+                        </video>
+                        <h4 style="margin: 10px 0;">${file.name}</h4>
+                        <p style="font-size: 12px; color: #aaa;">SIZE: ${mbSize} MB</p>
+                        <a href="${file.downloadUrl}" class="download-btn">DOWNLOAD</a>
+                    `;
+                    container.appendChild(div);
+                });
+
+            } catch (err) {
+                container.innerHTML = '<h3>Error loading files.</h3>';
+            }
+        }
+        fetchVideos();
+    </script>
+</body>
+</html>

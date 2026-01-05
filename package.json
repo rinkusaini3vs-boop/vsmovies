@@ -1,0 +1,22 @@
+{
+  "name": "video-site",
+  "version": "1.0.0",
+  "description": "Legal video hosting starter project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.893.0",
+    "@aws-sdk/s3-request-presigner": "^3.893.0",
+    "axios": "^1.12.2",
+    "body-parser": "^2.2.0",
+    "cloudinary": "^1.41.3",
+    "dotenv": "^17.2.2",
+    "express": "^4.18.2",
+    "express-session": "^1.18.2",
+    "googleapis": "^166.0.0",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0"
+  }
+}

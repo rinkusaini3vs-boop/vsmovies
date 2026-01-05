@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieVerse - Magical</title>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8787520300246938"
+     crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <canvas id="magic-cursor"></canvas>
+
+    <div class="background-container">
+        <div class="liquid-blob blob-1"></div>
+        <div class="liquid-blob blob-2"></div>
+        <div class="liquid-blob blob-3"></div>
+        <div class="noise-overlay"></div> </div>
+
+    <header class="floating-header animate-fade-up">
+        <div class="header-left">
+            <a href="#" class="header-icon">☰</a>
+            <div class="logo">MOVIE<span>VERSE</span></div>
+        </div>
+        <div class="header-right">
+            <div onclick="toggleSearch()" class="header-icon" title="Search">🔍</div>
+            <div class="header-icon" title="Notifications">🔔</div>
+            <a href="login.html" class="header-icon">👤</a>
+            <div id="admin-trigger" class="header-icon" style="display: none; color: lime;" onclick="toggleAdminPanel()">🚀</div>
+        </div>
+    </header>
+
+    <div id="search-box" class="search-container">
+        <input type="text" id="movie-search" class="search-input" placeholder="Type to search..." onkeyup="filterMovies()">
+    </div>
+
+    <div class="admin-panel-container" id="admin-panel">
+        <div class="glass-panel">
+            <div class="close-btn" onclick="toggleAdminPanel()">✖</div>
+            <h3>Upload Movie</h3>
+            <div class="upload-controls">
+                <input type="file" id="file-input" class="glass-input">
+                <select id="category-select" class="glass-input">
+                    <option value="">Select Category</option>
+                    <option value="hollywood">Hollywood</option>
+                    <option value="bollywood">Bollywood</option>
+                </select>
+                <button onclick="uploadFile()" class="glow-btn" style="width: 100%;">Upload</button>
+            </div>
+            <p id="upload-status"></p>
+        </div>
+    </div>
+
+    <section class="hero-section">
+        <div class="hero-title-container">
+            <h1 class="hero-title">Featured <span>Movies</span></h1>
+            <div class="flying-glass glass-1"></div>
+            <div class="flying-glass glass-2"></div>
+        </div>
+        
+        <div class="swiper my3DSwiper">
+            <div class="swiper-wrapper" id="featured-wrapper"></div>
+        </div>
+    </section>
+
+    <div class="infinite-marquee">
+        <div class="marquee-content" id="dynamic-marquee">Loading Updates...</div>
+    </div>
+
+    <section class="folder-section">
+        <h2 class="section-title">Browse <span>Collections</span></h2>
+        <div class="bento-grid">
+            <a href="https://drive.google.com/drive/folders/18ik8hhWmrGreRi4MMkLVAx0K0m_Pipkn?usp=sharing" target="_blank" class="bento-card tilt-card" data-tilt>
+                <div class="card-glow"></div>
+                <img src="https://cdn-icons-png.flaticon.com/512/3163/3163478.png" class="bento-icon">
+                <div class="bento-text">
+                    <h3>Bollywood</h3>
+                    <p>Desi Hits</p>
+                </div>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1bROGhuxx4rXk63O43ngdycZqEi2kD1XV?usp=sharing" target="_blank" class="bento-card tilt-card trendy-card" data-tilt>
+                <div class="card-glow"></div>
+                <img src="https://cdn-icons-png.flaticon.com/512/4251/4251984.png" class="bento-icon">
+                <div class="bento-text">
+                    <h3>Trending</h3>
+                    <p>Viral Now</p>
+                </div>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1trRYRwTGjfH5_2jFxcPvO1In-MSig7FC?usp=sharing" target="_blank" class="bento-card tilt-card secret-card" data-tilt>
+                <div class="card-glow"></div>
+                <img src="https://cdn-icons-png.flaticon.com/512/2438/2438078.png" class="bento-icon">
+                <div class="bento-text">
+                    <h3>Secret</h3>
+                    <p>Private Vault</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="social-section">
+        <h2 class="section-title">Follow <span>Us</span></h2>
+        <div class="social-dock" id="dynamic-socials">
+            </div>
+    </section>
+
+    <footer><p>© 2025 MovieVerse.</p></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
