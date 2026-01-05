@@ -4,141 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MovieVerse - Ultra Premium</title>
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8787520300246938" crossorigin="anonymous"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Fonts & CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
+<div class="cursor-dot"></div>
+<div class="cursor-outline"></div>
 
-    <div class="universe-bg" id="parallax-bg">
-        <div class="stars-layer layer-1"></div>
-        <div class="stars-layer layer-2"></div>
-        <div class="nebula-layer"></div>
+<header class="floating-header">
+    <div class="header-left">
+        <div class="header-icon">
+            <i data-lucide="menu" class="lucide-icon"></i>
+        </div>
+
+        <div class="logo">
+            <i data-lucide="clapperboard" class="lucide-icon logo-icon"></i>
+            MOVIE<span>VERSE</span>
+        </div>
     </div>
 
-    <header class="floating-header">
-        <div class="header-left">
-            <div class="header-icon trigger-menu"><i class="ri-menu-4-line"></i></div>
-            <div class="logo"><i class="ri-movie-2-fill"></i> MOVIE<span>VERSE</span></div>
+    <div class="header-right">
+        <div onclick="toggleSearch()" class="header-icon">
+            <i data-lucide="search" class="lucide-icon"></i>
         </div>
-        <div class="header-right">
-            <div onclick="toggleSearch()" class="header-icon"><i class="ri-search-2-line"></i></div>
-            <div class="header-icon"><i class="ri-notification-3-line"></i></div>
-            <a href="login.html" class="header-icon"><i class="ri-user-smile-line"></i></a>
-            <div id="admin-trigger" class="header-icon admin-rocket" onclick="toggleAdminPanel()" style="display:none;">
-                <i class="ri-rocket-2-fill"></i>
+
+        <div class="header-icon">
+            <i data-lucide="bell" class="lucide-icon"></i>
+        </div>
+
+        <a href="login.html" class="header-icon">
+            <i data-lucide="user" class="lucide-icon"></i>
+        </a>
+    </div>
+</header>
+
+<section class="hero-section">
+    <h1 class="hero-title">Featured <span class="gradient-text">Movies</span></h1>
+
+    <div class="swiper my3DSwiper">
+        <div class="swiper-wrapper" id="featured-wrapper"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+<section class="folder-section">
+    <h2 class="section-title">Browse <span class="gradient-text">Collections</span></h2>
+
+    <div class="bento-grid">
+        <a class="bento-card">
+            <div class="card-icon-wrapper">
+                <i data-lucide="film" class="bento-icon"></i>
             </div>
-        </div>
-    </header>
+            <h3>Bollywood</h3>
+        </a>
 
-    <div id="search-box" class="search-container">
-        <div class="search-wrapper">
-            <i class="ri-search-line search-icon"></i>
-            <input type="text" id="movie-search" class="search-input" placeholder="Search movies, series..." onkeyup="filterMovies()">
-        </div>
-    </div>
-
-    <div class="admin-panel-container" id="admin-panel">
-        <div class="glass-panel">
-            <div class="close-btn" onclick="toggleAdminPanel()"><i class="ri-close-circle-line"></i></div>
-            <h3><i class="ri-upload-cloud-2-line"></i> Upload Movie</h3>
-            <div class="upload-controls">
-                <input type="file" id="file-input" class="glass-input">
-                <select id="category-select" class="glass-input">
-                    <option value="">Select Category</option>
-                    <option value="hollywood">Hollywood</option>
-                    <option value="bollywood">Bollywood</option>
-                </select>
-                <button onclick="uploadFile()" class="glow-btn">Upload Now</button>
+        <a class="bento-card">
+            <div class="card-icon-wrapper">
+                <i data-lucide="trending-up" class="bento-icon"></i>
             </div>
-            <p id="upload-status"></p>
-        </div>
-    </div>
+            <h3>Trending</h3>
+        </a>
 
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1 class="hero-title">Featured <span class="gradient-text">Movies</span></h1>
-            <div class="badge-container">
-                <span class="badge"><i class="ri-fire-fill"></i> Trending</span>
-                <span class="badge"><i class="ri-hd-line"></i> 4K HDR</span>
+        <a class="bento-card">
+            <div class="card-icon-wrapper">
+                <i data-lucide="bookmark" class="bento-icon"></i>
             </div>
-        </div>
-        
-        <div class="swiper my3DSwiper">
-            <div class="swiper-wrapper" id="featured-wrapper"></div>
-            <div class="swiper-pagination"></div>
-        </div>
-    </section>
-
-    <div class="infinite-marquee">
-        <div class="marquee-content" id="dynamic-marquee">
-            <i class="ri-film-line"></i> Welcome to MovieVerse • <i class="ri-download-cloud-2-line"></i> Fast Downloads • <i class="ri-vip-crown-fill"></i> Premium Collection
-        </div>
+            <h3>Watchlist</h3>
+        </a>
     </div>
+</section>
 
-    <section class="folder-section">
-        <h2 class="section-title">Browse <span class="gradient-text">Collections</span></h2>
-        <div class="bento-grid">
-            <a href="https://drive.google.com/drive/folders/18ik8hhWmrGreRi4MMkLVAx0K0m_Pipkn?usp=sharing" target="_blank" class="bento-card tilt-card" data-tilt>
-                <div class="card-icon-wrapper bollywood-glow">
-                    <i class="ri-film-fill bento-icon"></i>
-                </div>
-                <div class="bento-text">
-                    <h3>Bollywood</h3>
-                    <p>Desi Blockbusters</p>
-                </div>
-                <div class="card-arrow"><i class="ri-arrow-right-up-line"></i></div>
-            </a>
+<footer>
+    <p>© 2026 MovieVerse</p>
+</footer>
 
-            <a href="https://drive.google.com/drive/folders/1bROGhuxx4rXk63O43ngdycZqEi2kD1XV?usp=sharing" target="_blank" class="bento-card tilt-card trendy-card" data-tilt>
-                <div class="card-icon-wrapper trending-glow">
-                    <i class="ri-fire-fill bento-icon"></i>
-                </div>
-                <div class="bento-text">
-                    <h3>Trending</h3>
-                    <p>Viral & Hot</p>
-                </div>
-                <div class="card-arrow"><i class="ri-arrow-right-up-line"></i></div>
-            </a>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="script.js"></script>
 
-            <a href="https://drive.google.com/drive/folders/1trRYRwTGjfH5_2jFxcPvO1In-MSig7FC?usp=sharing" target="_blank" class="bento-card tilt-card secret-card" data-tilt>
-                <div class="card-icon-wrapper secret-glow">
-                    <i class="ri-shield-star-fill bento-icon"></i>
-                </div>
-                <div class="bento-text">
-                    <h3>Secret</h3>
-                    <p>Private Vault</p>
-                </div>
-                <div class="card-arrow"><i class="ri-lock-2-line"></i></div>
-            </a>
-        </div>
-    </section>
+<!-- ACTIVATE LUCIDE -->
+<script>
+  lucide.createIcons();
+</script>
 
-    <section class="social-section">
-        <h2 class="section-title">Follow <span class="gradient-text">Us</span></h2>
-        <div class="social-dock" id="dynamic-socials">
-             </div>
-    </section>
-
-    <footer>
-        <div class="footer-links">
-            <a href="about.html"><i class="ri-information-line"></i> About</a>
-            <a href="contact.html"><i class="ri-mail-send-line"></i> Contact</a>
-            <a href="disclaimer.html"><i class="ri-alert-line"></i> Disclaimer</a>
-            <a href="privacy.html"><i class="ri-shield-keyhole-line"></i> Privacy</a>
-        </div>
-        <p>© 2026 MovieVerse. Handcrafted for Cinema Lovers.</p>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
