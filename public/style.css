@@ -1,90 +1,177 @@
-/* --- ROOT VARIABLES --- */
+/* --- ROOT VARIABLES (iOS Colors) --- */
 :root {
     --primary-color: #00f7ff;
     --secondary-color: #bc13fe;
-    --bg-deep: #050510;
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.08); /* Apple style transparency */
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --blur-strength: 40px; /* Heavy blur for iOS look */
 }
 
 body {
-    background: var(--bg-deep);
+    background: #000;
     color: white;
-    font-family: 'Poppins', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* System Font for iOS feel */
     margin: 0;
     overflow-x: hidden;
-    cursor: none;
+    cursor: none; /* Default cursor hide */
 }
 
-/* --- 1. 3D BACKGROUND CONTAINER --- */
-.background-container {
+/* --- 1. PREMIUM IOS ANIMATED BACKGROUND (Aurora) --- */
+.ios-background {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1; /* Sabse piche */
-    background: #000; /* Fallback color */
-    /* Purana bubble animation CSS hata diya hai */
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle at 50% 50%, #1a1a2e, #000);
+    overflow: hidden;
 }
 
-/* --- HEADER (Slim & Smart Scroll) --- */
+.aurora-blob {
+    position: absolute;
+    filter: blur(80px);
+    opacity: 0.6;
+    animation: floatAurora 10s infinite alternate ease-in-out;
+    border-radius: 50%;
+}
+
+.blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #4f46e5; animation-delay: 0s; }
+.blob-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: #bc13fe; animation-delay: -2s; }
+.blob-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: #00f7ff; animation-delay: -4s; opacity: 0.4; }
+
+@keyframes floatAurora {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, -30px) scale(1.1); }
+}
+
+/* Noise Overlay for Texture */
+.noise-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.05; z-index: -1; pointer-events: none;
+}
+
+/* --- 2. NEW PREMIUM CURSOR (Working 100%) --- */
+.cursor-dot, .cursor-outline {
+    position: fixed; top: 0; left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.cursor-dot {
+    width: 8px; height: 8px;
+    background: white;
+    box-shadow: 0 0 10px white;
+}
+
+.cursor-outline {
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+}
+
+/* Hover Effect */
+body:hover .cursor-outline { width: 60px; height: 60px; background: rgba(255, 255, 255, 0.1); border-color: transparent; backdrop-filter: blur(2px); }
+
+/* --- 3. GLASS HEADER (iOS Style) --- */
 .floating-header {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 8px 25px; 
-    background: rgba(20, 20, 30, 0.7);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 50px;
-    position: fixed; 
-    top: 15px; 
-    left: 5%; right: 5%; 
-    z-index: 100;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-    transition: transform 0.4s ease-in-out; 
+    padding: 0 30px; height: 60px;
+    width: 90%; left: 5%; right: 5%;
+    
+    /* Super Glass Effect */
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(var(--blur-strength)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--blur-strength)) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    
+    position: fixed; top: 20px; z-index: 100;
+    transition: transform 0.4s ease, width 0.4s ease;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
-.header-hide { transform: translateY(-200%); }
-.header-icon { font-size: 1.2rem; padding: 8px; cursor: pointer; transition: 0.3s; color: #fff; text-decoration: none; }
-.header-icon:hover { color: var(--primary-color); transform: scale(1.1); }
-.logo { font-size: 1.3rem; font-weight: 800; letter-spacing: 1px; }
-.logo span { color: var(--primary-color); }
+.header-hide { transform: translateY(-150%); }
+.header-icon { font-size: 1.2rem; cursor: pointer; color: rgba(255,255,255,0.8); transition: 0.3s; }
+.header-icon:hover { color: white; transform: scale(1.1); }
+.logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; }
+.logo span { background: linear-gradient(to right, #00f7ff, #bc13fe); -webkit-background-clip: text; color: transparent; }
 
-/* --- OTHER SECTIONS (Cursor, Bento, Slider etc.) --- */
-/* (Baaki sab same hai, koi change nahi) */
-.cursor-dot { width: 8px; height: 8px; background-color: var(--primary-color); position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 9999; pointer-events: none; box-shadow: 0 0 10px var(--primary-color); }
-.cursor-outline { width: 40px; height: 40px; border: 2px solid var(--secondary-color); position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 9999; pointer-events: none; transition: width 0.2s, height 0.2s, background-color 0.2s; }
-body:hover .cursor-outline { width: 60px; height: 60px; opacity: 0.5; }
+/* --- 4. GLASS ELEMENTS & CARDS --- */
+.hero-title-container { position: relative; display: inline-block; padding: 20px; }
+.hero-title { font-size: 4rem; font-weight: 900; letter-spacing: -2px; margin: 0; line-height: 1; }
+.hero-title span { color: var(--primary-color); text-shadow: 0 0 30px rgba(0, 247, 255, 0.4); }
 
-.folder-section { padding: 80px 20px 50px; text-align: center; }
-.bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
-.bento-card { position: relative; background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px; display: flex; flex-direction: column; align-items: center; text-decoration: none; color: white; transition: transform 0.1s; overflow: hidden; }
-.card-glow { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, rgba(0, 247, 255, 0.1), transparent); opacity: 0; transition: 0.5s; }
-.bento-card:hover .card-glow { opacity: 1; }
-.bento-icon { width: 80px; height: 80px; margin-bottom: 20px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); transition: 0.5s; }
-.bento-card:hover .bento-icon { transform: translateZ(50px) scale(1.1); }
-.bento-text h3 { margin: 0; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; }
-.bento-text p { margin: 5px 0 0; color: #888; font-size: 0.9rem; }
-.trendy-card:hover { border-color: #ff9900; box-shadow: 0 0 30px rgba(255, 153, 0, 0.2); }
-.secret-card:hover { border-color: #ff0055; box-shadow: 0 0 30px rgba(255, 0, 85, 0.2); }
+/* Rectangular Glass Shards */
+.flying-glass {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    height: 60px; border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    z-index: 2; pointer-events: none;
+}
+.glass-1 { width: 120px; left: -100px; animation: slideGlass 6s infinite linear; }
+.glass-2 { width: 70px; left: -150px; animation: slideGlass 6s infinite linear 3s; background: rgba(0, 247, 255, 0.05); border-color: rgba(0, 247, 255, 0.3); }
+@keyframes slideGlass {
+    0% { left: -20%; opacity: 0; transform: translateY(-50%) rotate(-5deg); }
+    10% { opacity: 1; }
+    50% { transform: translateY(-50%) rotate(0deg) scale(1.1); }
+    90% { opacity: 1; }
+    100% { left: 110%; opacity: 0; transform: translateY(-50%) rotate(5deg); }
+}
 
-.social-section { text-align: center; padding: 50px 20px; }
-.social-dock { display: inline-flex; gap: 30px; padding: 20px 40px; background: rgba(255, 255, 255, 0.03); border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.dock-icon { width: 60px; height: 60px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-.dock-icon img { width: 100%; height: 100%; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
-.dock-icon:hover { transform: translateY(-20px) scale(1.3); }
-.dock-icon:hover img { filter: drop-shadow(0 0 20px var(--primary-color)); }
+/* Bento Grid */
+.folder-section { padding: 60px 20px; text-align: center; }
+.bento-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
+.bento-card {
+    width: 260px; height: 320px;
+    background: rgba(30, 30, 30, 0.4);
+    backdrop-filter: blur(40px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-decoration: none; color: white;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.bento-card:hover { transform: translateY(-15px) scale(1.02); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.4); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.bento-icon { width: 80px; height: 80px; margin-bottom: 20px; transition: 0.4s; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3)); }
+.bento-card:hover .bento-icon { transform: scale(1.1) rotate(5deg); }
+.bento-text h3 { margin: 0; font-size: 1.4rem; font-weight: 600; }
+.bento-text p { margin: 5px 0 0; color: #aaa; font-size: 0.9rem; }
 
-.hero-section { padding-top: 100px; text-align: center; } 
-.section-title { font-size: 2.5rem; margin-bottom: 20px; } .section-title span { color: var(--primary-color); text-shadow: 0 0 15px var(--primary-color); }
+/* Social Dock (Mac Style) */
+.social-section { text-align: center; padding: 40px; }
+.social-dock {
+    display: inline-flex; gap: 20px; padding: 15px 30px;
+    background: rgba(50, 50, 50, 0.4);
+    backdrop-filter: blur(30px);
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+.dock-icon { display: block; width: 50px; height: 50px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.dock-icon img { width: 100%; height: 100%; object-fit: contain; }
+.dock-icon:hover { transform: translateY(-15px) scale(1.25); }
+
+/* Swiper Video */
 .swiper { width: 100%; padding: 40px 0; }
-.swiper-slide { width: 280px; height: 420px; border-radius: 20px; border: 2px solid var(--glass-border); overflow: hidden; background: #000; }
-.swiper-slide-active { border-color: var(--primary-color); box-shadow: 0 0 30px var(--primary-color); transform: scale(1.1); z-index: 10; }
+.swiper-slide { width: 280px; height: 420px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+.swiper-slide-active { border: 2px solid var(--primary-color); box-shadow: 0 0 40px rgba(0, 247, 255, 0.3); transform: scale(1.1); }
 .card-bg-video { width: 100%; height: 100%; object-fit: cover; }
-.infinite-marquee { background: rgba(0, 247, 255, 0.05); border-top: 1px solid var(--primary-color); border-bottom: 1px solid var(--primary-color); padding: 10px 0; margin: 30px 0; overflow: hidden; white-space: nowrap; }
-.marquee-content { display: inline-block; animation: scrollText 20s linear infinite; font-size: 1.2rem; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 3px; }
-@keyframes scrollText { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
-.search-container { display: none; position: fixed; top: 80px; right: 50px; background: rgba(0,0,0,0.9); padding: 15px; border-radius: 10px; border: 1px solid var(--primary-color); z-index: 200; }
-.search-input { background: transparent; border: none; border-bottom: 1px solid white; color: white; padding: 5px; outline: none; width: 200px; }
-.admin-panel-container { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none; }
-.glass-panel { background: rgba(0,0,0,0.95); padding: 30px; border-radius: 20px; border: 1px solid var(--primary-color); box-shadow: 0 0 30px var(--primary-color); color: white; width: 350px; position: relative; }
-.close-btn { position: absolute; top: 10px; right: 15px; color: red; cursor: pointer; }
-.glass-input { background: #222; border: 1px solid #444; padding: 10px; width: 93%; color: white; margin-bottom: 10px; border-radius: 5px; }
-footer { text-align: center; padding: 40px; color: #aaa; margin-top: 50px; border-top: 1px solid var(--glass-border); }
+
+/* Marquee */
+.infinite-marquee { background: rgba(255, 255, 255, 0.05); border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 15px 0; margin: 40px 0; overflow: hidden; white-space: nowrap; backdrop-filter: blur(10px); }
+.marquee-content { display: inline-block; animation: scrollText 25s linear infinite; font-size: 1.2rem; font-weight: 700; color: rgba(255,255,255,0.9); text-transform: uppercase; letter-spacing: 4px; }
+@keyframes scrollText { from { transform: translateX(0%); } to { transform: translateX(-100%); } }
+
+/* Footer */
+footer { margin-top: 50px; padding: 40px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); color: #666; font-size: 0.9rem; }
+footer a { color: #888; text-decoration: none; margin: 0 15px; transition: 0.3s; }
+footer a:hover { color: white; }
+
+/* Utils */
+.hero-section { padding-top: 120px; text-align: center; }
+.search-container, .admin-panel-container { display: none; position: fixed; top: 80px; right: 20px; z-index: 200; background: rgba(0,0,0,0.9); padding: 15px; border-radius: 12px; border: 1px solid #333; }
+.search-input { background: #111; border: 1px solid #333; color: white; padding: 8px; border-radius: 8px; outline: none; }
