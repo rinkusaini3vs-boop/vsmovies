@@ -3,94 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MovieVerse - Aceternity</title>
+    <title>MovieVerse - Ultimate</title>
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8787520300246938" crossorigin="anonymous"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body>
+<body class="loading">
 
+    <div id="loading-screen">
+        <div class="loader-content">
+            <div class="spinner-3d"></div>
+            <h2>LOADING UNIVERSE...</h2>
+        </div>
+    </div>
+
+    <div id="threejs-canvas"></div>
     <div class="cursor-dot"></div>
-    
-    <div class="grid-bg"></div>
-    <div class="spotlight-overlay"></div>
+    <div class="cursor-outline"></div>
 
     <header class="floating-header">
-        <div class="logo"><i class="ri-shining-2-fill"></i> MOVIEVERSE</div>
+        <div class="header-left">
+            <div class="header-icon magnetic-btn trigger-menu"><i class="ri-menu-4-line"></i></div>
+            <div class="logo"><i class="ri-movie-2-fill"></i> MOVIE<span>VERSE</span></div>
+        </div>
         <div class="header-right">
-            <div onclick="toggleSearch()" class="header-icon"><i class="ri-search-line"></i></div>
-            <a href="login.html" class="header-icon"><i class="ri-user-line"></i></a>
-            <div id="admin-trigger" class="header-icon" onclick="toggleAdminPanel()" style="display:none;"><i class="ri-settings-4-line"></i></div>
+            <div onclick="toggleSearch()" class="header-icon magnetic-btn"><i class="ri-search-2-line"></i></div>
+            <a href="login.html" class="header-icon magnetic-btn"><i class="ri-user-smile-line"></i></a>
+            <div id="admin-trigger" class="header-icon magnetic-btn admin-rocket" onclick="toggleAdminPanel()" style="display:none;">
+                <i class="ri-rocket-2-fill"></i>
+            </div>
         </div>
     </header>
 
     <div id="search-box" class="search-container">
         <input type="text" id="movie-search" class="search-input" placeholder="Search..." onkeyup="filterMovies()">
     </div>
-
     <div class="admin-panel-container" id="admin-panel">
         <div class="glass-panel">
-            <div class="close-btn" onclick="toggleAdminPanel()"><i class="ri-close-line"></i></div>
-            <h3>Upload</h3>
-            <input type="file" id="file-input" class="search-input" style="margin-bottom:10px;">
-            <select id="category-select" class="search-input" style="margin-bottom:10px;">
-                <option value="">Category</option>
-                <option value="hollywood">Hollywood</option>
-                <option value="bollywood">Bollywood</option>
-            </select>
-            <button onclick="uploadFile()" class="glow-btn" style="width:100%">Upload</button>
+            <div class="close-btn magnetic-btn" onclick="toggleAdminPanel()"><i class="ri-close-circle-line"></i></div>
+            <h3>Upload Movie</h3>
+            <div class="upload-controls">
+                <input type="file" id="file-input" class="glass-input">
+                <select id="category-select" class="glass-input">
+                    <option value="">Category</option>
+                    <option value="hollywood">Hollywood</option>
+                    <option value="bollywood">Bollywood</option>
+                </select>
+                <button onclick="uploadFile()" class="glow-btn magnetic-btn">Upload Now</button>
+            </div>
             <p id="upload-status"></p>
         </div>
     </div>
 
-    <section class="hero-section">
-        <h1 class="hero-title">Cinema <br> Reimagined.</h1>
-        <p class="hero-subtitle">Experience the next generation of movie streaming. 4K HDR quality, zero buffering, and a UI designed for the future.</p>
+    <section class="hero-section" id="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Cinema in <span class="gradient-text">Dimension X</span></h1>
+        </div>
         <div class="swiper my3DSwiper">
             <div class="swiper-wrapper" id="featured-wrapper"></div>
         </div>
     </section>
 
-    <div class="infinite-marquee" style="border-top: 1px solid #222; border-bottom: 1px solid #222; padding: 10px 0; overflow: hidden; white-space: nowrap; color: #666;">
-        <div id="dynamic-marquee" style="display: inline-block; animation: scroll 20s linear infinite;">WELCOME TO THE FUTURE OF STREAMING • 4K ULTRA HD • DOLBY ATMOS</div>
+    <section id="showcase-container" class="showcase-section">
+        </section>
+
+    <div class="infinite-marquee">
+        <div class="marquee-content" id="dynamic-marquee">Welcome to MovieVerse • Premium Experience</div>
     </div>
-    <style> @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } } </style>
 
     <section class="folder-section">
         <h2 class="section-title">Collections</h2>
-        <div class="bento-grid" id="card-container">
-            <a href="https://drive.google.com/drive/folders/18ik8hhWmrGreRi4MMkLVAx0K0m_Pipkn?usp=sharing" target="_blank" class="bento-card">
-                <i class="ri-movie-2-line bento-icon"></i>
-                <h3>Bollywood</h3>
-                <p>Curated Hits</p>
+        <div class="bento-grid">
+            <a href="https://drive.google.com/drive/folders/18ik8hhWmrGreRi4MMkLVAx0K0m_Pipkn?usp=sharing" target="_blank" class="bento-card magnetic-card">
+                <video class="hover-video" src="slidevideo1.mp4" loop muted></video>
+                <div class="card-icon-wrapper bollywood-glow"><i class="ri-film-fill bento-icon"></i></div>
+                <div class="bento-text"><h3>Bollywood</h3><p>Desi Hits</p></div>
             </a>
-            <a href="https://drive.google.com/drive/folders/1bROGhuxx4rXk63O43ngdycZqEi2kD1XV?usp=sharing" target="_blank" class="bento-card">
-                <i class="ri-fire-line bento-icon"></i>
-                <h3>Trending</h3>
-                <p>Top Charts</p>
+            <a href="https://drive.google.com/drive/folders/1bROGhuxx4rXk63O43ngdycZqEi2kD1XV?usp=sharing" target="_blank" class="bento-card magnetic-card">
+                <video class="hover-video" src="slidevideo2.mp4" loop muted></video>
+                <div class="card-icon-wrapper trending-glow"><i class="ri-fire-fill bento-icon"></i></div>
+                <div class="bento-text"><h3>Trending</h3><p>Viral Now</p></div>
             </a>
-            <a href="https://drive.google.com/drive/folders/1trRYRwTGjfH5_2jFxcPvO1In-MSig7FC?usp=sharing" target="_blank" class="bento-card">
-                <i class="ri-shield-keyhole-line bento-icon"></i>
-                <h3>Secret Vault</h3>
-                <p>Members Only</p>
+            <a href="https://drive.google.com/drive/folders/1trRYRwTGjfH5_2jFxcPvO1In-MSig7FC?usp=sharing" target="_blank" class="bento-card magnetic-card">
+                <video class="hover-video" src="slidevideo3.mp4" loop muted></video>
+                <div class="card-icon-wrapper secret-glow"><i class="ri-shield-star-fill bento-icon"></i></div>
+                <div class="bento-text"><h3>Secret</h3><p>Private Vault</p></div>
             </a>
         </div>
     </section>
 
-    <section class="hero-section" style="padding-top: 0;">
-        <div class="social-dock" id="dynamic-socials"></div>
-    </section>
-
     <footer>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="disclaimer.html">Disclaimer</a>
-        <a href="privacy.html">Privacy</a>
-        <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.5;">© 2026 MovieVerse Inc.</p>
+        <p>© 2026 MovieVerse. Powered by WebGL.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

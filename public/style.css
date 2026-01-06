@@ -1,151 +1,93 @@
-/* --- ACETERNITY / BEQUANT THEME VARIABLES --- */
 :root {
-    --bg-dark: #000000; /* Pure Black */
-    --grid-color: rgba(255, 255, 255, 0.08); /* Faint Grid */
-    --primary: #3b82f6; /* Electric Blue */
-    --accent: #8b5cf6; /* Violet */
-    --text-main: #ffffff;
-    --text-muted: #a1a1aa;
+    --primary: #00f7ff;
+    --secondary: #bc13fe;
+    --bg-dark: #050508;
+    --glass: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.1);
-    --spotlight-size: 400px;
 }
 
-body {
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    font-family: 'Inter', sans-serif; /* Clean Tech Font */
-    margin: 0;
-    overflow-x: hidden;
-    cursor: none;
-}
+body { margin: 0; overflow-x: hidden; background: #000; font-family: 'Outfit', sans-serif; color: white; cursor: none; }
+#threejs-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 
-/* --- 1. MOVING GRID BACKGROUND (Aceternity Style) --- */
-.grid-bg {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -2;
-    background-size: 50px 50px;
-    background-image: 
-        linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
-    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-    animation: gridMove 20s linear infinite;
-}
+/* COMPACT HERO */
+.hero-section { text-align: center; padding-top: 100px; padding-bottom: 20px; transition: 0.5s; }
+.hero-title { font-size: 3rem; margin-bottom: 5px; text-shadow: 0 0 20px rgba(0,247,255,0.4); }
+.gradient-text { background: linear-gradient(to right, #00f7ff, #bc13fe); -webkit-background-clip: text; color: transparent; }
 
-/* Mouse Spotlight Effect */
-.spotlight-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: -1;
-    background: radial-gradient(
-        var(--spotlight-size) circle at var(--x, 50%) var(--y, 50%), 
-        rgba(59, 130, 246, 0.15), 
-        transparent 80%
-    );
-    transition: background 0.1s;
-}
-
-@keyframes gridMove {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(50px); }
-}
-
-/* --- 2. MINIMALIST HEADER --- */
-.floating-header {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 0 40px; height: 80px;
-    width: 100%; box-sizing: border-box;
-    position: fixed; top: 0; z-index: 100;
+/* SMALLER SLIDER */
+.swiper { width: 100%; padding: 20px 0; perspective: 1000px; }
+.swiper-slide { 
+    width: 200px; height: 300px; /* Perfect Compact Size */
+    border-radius: 15px; overflow: hidden; 
+    border: 1px solid rgba(255,255,255,0.2); 
     background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--glass-border);
+    transition: 0.5s;
+    -webkit-box-reflect: below 5px linear-gradient(transparent, transparent, rgba(0,0,0,0.3));
 }
-
-.logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -1px; display: flex; align-items: center; gap: 10px; }
-.logo i { color: var(--primary); }
-.header-right { display: flex; gap: 20px; }
-.header-icon { font-size: 1.2rem; color: var(--text-muted); cursor: pointer; transition: 0.3s; }
-.header-icon:hover { color: white; }
-
-/* --- 3. HERO SECTION (Gradient Text) --- */
-.hero-section { 
-    text-align: center; padding: 150px 20px 50px; 
-    position: relative;
-}
-
-.hero-title {
-    font-size: 5rem; font-weight: 800; letter-spacing: -2px; line-height: 1.1;
-    background: linear-gradient(to bottom right, #fff 30%, #a1a1aa);
-    -webkit-background-clip: text; color: transparent;
-    margin-bottom: 20px;
-}
-
-.hero-subtitle {
-    font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 50px;
-}
-
-.glow-btn {
-    padding: 12px 30px; font-size: 1rem; font-weight: 600;
-    background: white; color: black; border: none; border-radius: 30px;
-    cursor: pointer; transition: 0.3s;
-    box-shadow: 0 0 20px rgba(255,255,255,0.2);
-}
-.glow-btn:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(255,255,255,0.4); }
-
-/* --- 4. BENTO GRID (Spotlight Cards) --- */
-.folder-section { padding: 50px 20px; max-width: 1200px; margin: 0 auto; }
-.section-title { font-size: 2rem; font-weight: 700; margin-bottom: 40px; text-align: center; }
-
-.bento-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
-}
-
-.bento-card {
-    position: relative; height: 300px;
-    background: rgba(20, 20, 20, 0.6);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    overflow: hidden;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-decoration: none; color: white;
-    transition: 0.3s;
-}
-
-/* Spotlight Hover Effect on Cards */
-.bento-card::before {
-    content: "";
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(
-        300px circle at var(--mouse-x) var(--mouse-y), 
-        rgba(255,255,255,0.1), 
-        transparent 40%
-    );
-    opacity: 0; transition: opacity 0.5s; pointer-events: none;
-}
-.bento-card:hover::before { opacity: 1; }
-.bento-card:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-5px); }
-
-.bento-icon { font-size: 3rem; margin-bottom: 20px; color: var(--text-muted); transition: 0.3s; }
-.bento-card:hover .bento-icon { color: var(--primary); transform: scale(1.1); }
-
-/* --- 5. SOCIAL DOCK (Minimal) --- */
-.social-dock {
-    display: inline-flex; gap: 15px; padding: 10px 20px;
-    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
-    border-radius: 50px; margin-top: 50px;
-}
-.dock-icon { 
-    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-    color: var(--text-muted); text-decoration: none; font-size: 1.2rem;
-    transition: 0.3s; border-radius: 50%;
-}
-.dock-icon:hover { background: rgba(255,255,255,0.1); color: white; }
-
-/* --- UTILS --- */
-.swiper { width: 100%; height: 400px; margin-bottom: 50px; }
-.swiper-slide { width: 250px; border-radius: 12px; overflow: hidden; opacity: 0.5; transition: 0.3s; }
-.swiper-slide-active { opacity: 1; transform: scale(1.1); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+.swiper-slide-active { transform: scale(1.2); border: 2px solid var(--primary); box-shadow: 0 0 30px rgba(0,247,255,0.3); }
 .card-bg-video { width: 100%; height: 100%; object-fit: cover; }
-.cursor-dot { width: 8px; height: 8px; background: white; position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; }
-footer { padding: 50px; text-align: center; color: var(--text-muted); border-top: 1px solid var(--glass-border); }
-.search-container, .admin-panel-container { display: none; position: fixed; top: 100px; right: 50px; background: #111; padding: 20px; border: 1px solid #333; border-radius: 12px; z-index: 200; }
-.search-input { background: #222; border: none; padding: 10px; color: white; width: 200px; outline: none; border-radius: 6px; }
+
+/* ✅ SHOWCASE SECTION (FIXED) */
+.showcase-section { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+.showcase-row {
+    display: flex; align-items: center; justify-content: center; gap: 80px;
+    margin-bottom: 100px; opacity: 0; transform: translateY(80px); /* Starts lower */
+    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.showcase-row.visible { opacity: 1; transform: translateY(0); }
+.showcase-row.reverse { flex-direction: row-reverse; }
+
+/* PHONE SIZE IMAGE BOX */
+.showcase-img-box {
+    position: relative; width: 280px; height: 400px; /* Phone Ratio */
+    border-radius: 20px; flex-shrink: 0;
+    padding: 3px; /* Space for Neon Border */
+    background: #000; /* Behind image */
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+/* REAL NEON ANIMATION (Rotating Border) */
+.showcase-img-box::before {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: conic-gradient(transparent, transparent, transparent, var(--neon-color));
+    animation: rotate 4s linear infinite;
+    z-index: 0;
+}
+.showcase-img-box::after {
+    content: ''; position: absolute; inset: 3px; background: #050508; border-radius: 18px; z-index: 1;
+}
+.showcase-img-box img {
+    position: relative; z-index: 2; width: 100%; height: 100%; object-fit: cover; border-radius: 18px;
+    display: block; opacity: 0.9;
+}
+@keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* GLOWING TEXT */
+.showcase-text { width: 40%; }
+.showcase-text h2 { font-size: 2.2rem; margin-bottom: 15px; color: white; }
+.showcase-text p { color: #ccc; font-size: 1.1rem; line-height: 1.7; transition: 0.3s; }
+.showcase-text:hover p { color: white; text-shadow: 0 0 15px var(--neon-color); } /* Glow on Hover */
+
+/* OTHER UI */
+.floating-header { display: flex; justify-content: space-between; align-items: center; padding: 0 30px; height: 70px; width: 90%; left: 5%; position: fixed; top: 20px; z-index: 100; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px); border-radius: 20px; border: 1px solid var(--glass-border); }
+.header-icon { font-size: 1.4rem; color: rgba(255,255,255,0.8); cursor: pointer; padding: 10px; transition: 0.3s; }
+.bento-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
+.bento-card { position: relative; width: 280px; height: 340px; background: rgba(10, 10, 10, 0.4); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: white; transition: transform 0.4s; overflow: hidden; }
+.bento-card:hover { transform: scale(1.05); border-color: var(--primary); }
+.hover-video { position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; opacity: 0; transition: opacity 0.4s; z-index: 0; }
+.bento-card:hover .hover-video { opacity: 1; }
+.card-icon-wrapper { z-index: 2; width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 2.5rem; }
+.search-container, .admin-panel-container { display: none; position: fixed; top: 100px; right: 50px; background: rgba(0,0,0,0.9); padding: 20px; border-radius: 12px; z-index: 200; border: 1px solid #333; backdrop-filter: blur(10px); }
+.search-input, .glass-input { background: rgba(255,255,255,0.1); border: 1px solid #333; color: white; padding: 10px; width: 200px; border-radius: 8px; margin-bottom: 10px; }
+.infinite-marquee { background: rgba(255, 255, 255, 0.02); padding: 15px 0; margin: 40px 0; overflow: hidden; white-space: nowrap; backdrop-filter: blur(5px); }
+.marquee-content { display: inline-block; animation: scrollText 25s linear infinite; font-size: 1.2rem; letter-spacing: 2px; color: rgba(255,255,255,0.8); }
+@keyframes scrollText { from { transform: translateX(0%); } to { transform: translateX(-100%); } }
+footer { padding: 50px; text-align: center; border-top: 1px solid var(--glass-border); color: #666; font-size: 0.9rem; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
+.cursor-dot { width: 8px; height: 8px; background: white; border-radius: 50%; position: fixed; z-index: 9999; pointer-events: none; }
+.cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.5); border-radius: 50%; position: fixed; z-index: 9999; pointer-events: none; transition: transform 0.1s; }
+/* Loader */
+#loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 1s ease; }
+.loader-content h2 { margin-top: 30px; letter-spacing: 4px; color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+.spinner-3d { width: 60px; height: 60px; margin: 0 auto; border: 3px solid rgba(0, 247, 255, 0.1); border-top-color: var(--primary); border-bottom-color: var(--secondary); border-radius: 50%; animation: spin 1s infinite linear; box-shadow: 0 0 30px rgba(0, 247, 255, 0.2); }
+@keyframes spin { to { transform: rotate(360deg); } }
