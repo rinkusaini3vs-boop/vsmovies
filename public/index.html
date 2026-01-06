@@ -2,96 +2,98 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MovieVerse - Ultra Premium</title>
-
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- Fonts & CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieVerse - Aceternity</title>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8787520300246938" crossorigin="anonymous"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="cursor-dot"></div>
-<div class="cursor-outline"></div>
+    <div class="cursor-dot"></div>
+    
+    <div class="grid-bg"></div>
+    <div class="spotlight-overlay"></div>
 
-<header class="floating-header">
-    <div class="header-left">
-        <div class="header-icon">
-            <i data-lucide="menu" class="lucide-icon"></i>
+    <header class="floating-header">
+        <div class="logo"><i class="ri-shining-2-fill"></i> MOVIEVERSE</div>
+        <div class="header-right">
+            <div onclick="toggleSearch()" class="header-icon"><i class="ri-search-line"></i></div>
+            <a href="login.html" class="header-icon"><i class="ri-user-line"></i></a>
+            <div id="admin-trigger" class="header-icon" onclick="toggleAdminPanel()" style="display:none;"><i class="ri-settings-4-line"></i></div>
         </div>
+    </header>
 
-        <div class="logo">
-            <i data-lucide="clapperboard" class="lucide-icon logo-icon"></i>
-            MOVIE<span>VERSE</span>
+    <div id="search-box" class="search-container">
+        <input type="text" id="movie-search" class="search-input" placeholder="Search..." onkeyup="filterMovies()">
+    </div>
+
+    <div class="admin-panel-container" id="admin-panel">
+        <div class="glass-panel">
+            <div class="close-btn" onclick="toggleAdminPanel()"><i class="ri-close-line"></i></div>
+            <h3>Upload</h3>
+            <input type="file" id="file-input" class="search-input" style="margin-bottom:10px;">
+            <select id="category-select" class="search-input" style="margin-bottom:10px;">
+                <option value="">Category</option>
+                <option value="hollywood">Hollywood</option>
+                <option value="bollywood">Bollywood</option>
+            </select>
+            <button onclick="uploadFile()" class="glow-btn" style="width:100%">Upload</button>
+            <p id="upload-status"></p>
         </div>
     </div>
 
-    <div class="header-right">
-        <div onclick="toggleSearch()" class="header-icon">
-            <i data-lucide="search" class="lucide-icon"></i>
+    <section class="hero-section">
+        <h1 class="hero-title">Cinema <br> Reimagined.</h1>
+        <p class="hero-subtitle">Experience the next generation of movie streaming. 4K HDR quality, zero buffering, and a UI designed for the future.</p>
+        <div class="swiper my3DSwiper">
+            <div class="swiper-wrapper" id="featured-wrapper"></div>
         </div>
+    </section>
 
-        <div class="header-icon">
-            <i data-lucide="bell" class="lucide-icon"></i>
+    <div class="infinite-marquee" style="border-top: 1px solid #222; border-bottom: 1px solid #222; padding: 10px 0; overflow: hidden; white-space: nowrap; color: #666;">
+        <div id="dynamic-marquee" style="display: inline-block; animation: scroll 20s linear infinite;">WELCOME TO THE FUTURE OF STREAMING • 4K ULTRA HD • DOLBY ATMOS</div>
+    </div>
+    <style> @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } } </style>
+
+    <section class="folder-section">
+        <h2 class="section-title">Collections</h2>
+        <div class="bento-grid" id="card-container">
+            <a href="https://drive.google.com/drive/folders/18ik8hhWmrGreRi4MMkLVAx0K0m_Pipkn?usp=sharing" target="_blank" class="bento-card">
+                <i class="ri-movie-2-line bento-icon"></i>
+                <h3>Bollywood</h3>
+                <p>Curated Hits</p>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1bROGhuxx4rXk63O43ngdycZqEi2kD1XV?usp=sharing" target="_blank" class="bento-card">
+                <i class="ri-fire-line bento-icon"></i>
+                <h3>Trending</h3>
+                <p>Top Charts</p>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1trRYRwTGjfH5_2jFxcPvO1In-MSig7FC?usp=sharing" target="_blank" class="bento-card">
+                <i class="ri-shield-keyhole-line bento-icon"></i>
+                <h3>Secret Vault</h3>
+                <p>Members Only</p>
+            </a>
         </div>
+    </section>
 
-        <a href="login.html" class="header-icon">
-            <i data-lucide="user" class="lucide-icon"></i>
-        </a>
-    </div>
-</header>
+    <section class="hero-section" style="padding-top: 0;">
+        <div class="social-dock" id="dynamic-socials"></div>
+    </section>
 
-<section class="hero-section">
-    <h1 class="hero-title">Featured <span class="gradient-text">Movies</span></h1>
+    <footer>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="privacy.html">Privacy</a>
+        <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.5;">© 2026 MovieVerse Inc.</p>
+    </footer>
 
-    <div class="swiper my3DSwiper">
-        <div class="swiper-wrapper" id="featured-wrapper"></div>
-        <div class="swiper-pagination"></div>
-    </div>
-</section>
-
-<section class="folder-section">
-    <h2 class="section-title">Browse <span class="gradient-text">Collections</span></h2>
-
-    <div class="bento-grid">
-        <a class="bento-card">
-            <div class="card-icon-wrapper">
-                <i data-lucide="film" class="bento-icon"></i>
-            </div>
-            <h3>Bollywood</h3>
-        </a>
-
-        <a class="bento-card">
-            <div class="card-icon-wrapper">
-                <i data-lucide="trending-up" class="bento-icon"></i>
-            </div>
-            <h3>Trending</h3>
-        </a>
-
-        <a class="bento-card">
-            <div class="card-icon-wrapper">
-                <i data-lucide="bookmark" class="bento-icon"></i>
-            </div>
-            <h3>Watchlist</h3>
-        </a>
-    </div>
-</section>
-
-<footer>
-    <p>© 2026 MovieVerse</p>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="script.js"></script>
-
-<!-- ACTIVATE LUCIDE -->
-<script>
-  lucide.createIcons();
-</script>
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

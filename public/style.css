@@ -1,201 +1,151 @@
-/* ================= ROOT ================= */
+/* --- ACETERNITY / BEQUANT THEME VARIABLES --- */
 :root {
-    --primary: #00f7ff;
-    --secondary: #bc13fe;
-    --accent: #ff0055;
-    --bg-dark: #050508;
-    --glass: rgba(255, 255, 255, 0.05);
+    --bg-dark: #000000; /* Pure Black */
+    --grid-color: rgba(255, 255, 255, 0.08); /* Faint Grid */
+    --primary: #3b82f6; /* Electric Blue */
+    --accent: #8b5cf6; /* Violet */
+    --text-main: #ffffff;
+    --text-muted: #a1a1aa;
     --glass-border: rgba(255, 255, 255, 0.1);
-    --text-glow: 0 0 20px rgba(0, 247, 255, 0.6);
+    --spotlight-size: 400px;
 }
 
 body {
-    background: var(--bg-dark);
-    color: white;
-    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif; /* Clean Tech Font */
     margin: 0;
     overflow-x: hidden;
     cursor: none;
 }
 
-/* ================= HEADER ================= */
+/* --- 1. MOVING GRID BACKGROUND (Aceternity Style) --- */
+.grid-bg {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -2;
+    background-size: 50px 50px;
+    background-image: 
+        linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+    animation: gridMove 20s linear infinite;
+}
+
+/* Mouse Spotlight Effect */
+.spotlight-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: -1;
+    background: radial-gradient(
+        var(--spotlight-size) circle at var(--x, 50%) var(--y, 50%), 
+        rgba(59, 130, 246, 0.15), 
+        transparent 80%
+    );
+    transition: background 0.1s;
+}
+
+@keyframes gridMove {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(50px); }
+}
+
+/* --- 2. MINIMALIST HEADER --- */
 .floating-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 25px;
-    height: 70px;
-    width: 88%;
-    left: 6%;
-    background: rgba(10,10,10,0.6);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    position: fixed;
-    top: 20px;
-    z-index: 100;
-    border: 1px solid var(--glass-border);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 40px; height: 80px;
+    width: 100%; box-sizing: border-box;
+    position: fixed; top: 0; z-index: 100;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
 }
 
-.header-icon {
-    padding: 10px;
-    cursor: pointer;
-}
+.logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -1px; display: flex; align-items: center; gap: 10px; }
+.logo i { color: var(--primary); }
+.header-right { display: flex; gap: 20px; }
+.header-icon { font-size: 1.2rem; color: var(--text-muted); cursor: pointer; transition: 0.3s; }
+.header-icon:hover { color: white; }
 
-/* ================= LUCIDE ICONS ================= */
-.lucide-icon {
-    width: 22px;
-    height: 22px;
-    stroke-width: 2;
-    color: #ccc;
-    transition: 0.35s ease;
-}
-
-.header-icon:hover .lucide-icon {
-    color: var(--primary);
-    transform: scale(1.25) rotate(4deg);
-    filter: drop-shadow(0 0 14px rgba(0,247,255,0.8));
-}
-
-.logo-icon {
-    width: 26px;
-    height: 26px;
-    color: var(--secondary);
-}
-
-/* ================= HERO ================= */
-.hero-section {
-    padding-top: 130px;
-    text-align: center;
+/* --- 3. HERO SECTION (Gradient Text) --- */
+.hero-section { 
+    text-align: center; padding: 150px 20px 50px; 
+    position: relative;
 }
 
 .hero-title {
-    font-size: 3.5rem;
-    font-weight: 900;
-}
-
-.gradient-text {
-    background: linear-gradient(90deg, #00f7ff, #bc13fe);
-    -webkit-background-clip: text;
-    color: transparent;
-}
-
-/* ================= SWIPER ================= */
-.swiper {
-    padding: 60px 0;
-}
-
-.swiper-slide {
-    width: 280px;
-    height: 420px;
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-}
-
-.card-bg-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* PLAY ICON */
-.play-icon {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.play-lucide {
-    width: 68px;
-    height: 68px;
-    color: white;
-    opacity: 0.9;
-    transition: 0.4s ease;
-}
-
-.swiper-slide:hover .play-lucide {
-    transform: scale(1.35);
-    color: var(--primary);
-    filter: drop-shadow(0 0 30px rgba(0,247,255,1));
-}
-
-/* ================= BENTO ================= */
-.folder-section {
-    padding: 80px 20px;
-    text-align: center;
-}
-
-.bento-grid {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.bento-card {
-    width: 280px;
-    height: 340px;
-    border-radius: 24px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(25px);
-    border: 1px solid var(--glass-border);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: 0.45s ease;
-}
-
-.card-icon-wrapper {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.35);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 5rem; font-weight: 800; letter-spacing: -2px; line-height: 1.1;
+    background: linear-gradient(to bottom right, #fff 30%, #a1a1aa);
+    -webkit-background-clip: text; color: transparent;
     margin-bottom: 20px;
 }
 
-.bento-icon {
-    width: 48px;
-    height: 48px;
-    transition: 0.45s ease;
+.hero-subtitle {
+    font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 50px;
 }
 
-.bento-card:hover {
-    transform: translateY(-10px) scale(1.04);
-    box-shadow: 0 0 60px rgba(0,247,255,0.25);
+.glow-btn {
+    padding: 12px 30px; font-size: 1rem; font-weight: 600;
+    background: white; color: black; border: none; border-radius: 30px;
+    cursor: pointer; transition: 0.3s;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+.glow-btn:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(255,255,255,0.4); }
+
+/* --- 4. BENTO GRID (Spotlight Cards) --- */
+.folder-section { padding: 50px 20px; max-width: 1200px; margin: 0 auto; }
+.section-title { font-size: 2rem; font-weight: 700; margin-bottom: 40px; text-align: center; }
+
+.bento-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
 }
 
-.bento-card:hover .bento-icon {
-    transform: scale(1.35) rotate(6deg);
-    color: var(--primary);
-    filter: drop-shadow(0 0 25px rgba(0,247,255,0.9));
+.bento-card {
+    position: relative; height: 300px;
+    background: rgba(20, 20, 20, 0.6);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-decoration: none; color: white;
+    transition: 0.3s;
 }
 
-/* ================= CURSOR ================= */
-.cursor-dot {
-    width: 8px;
-    height: 8px;
-    background: white;
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
+/* Spotlight Hover Effect on Cards */
+.bento-card::before {
+    content: "";
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(
+        300px circle at var(--mouse-x) var(--mouse-y), 
+        rgba(255,255,255,0.1), 
+        transparent 40%
+    );
+    opacity: 0; transition: opacity 0.5s; pointer-events: none;
 }
+.bento-card:hover::before { opacity: 1; }
+.bento-card:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-5px); }
 
-.cursor-outline {
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(255,255,255,0.5);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
+.bento-icon { font-size: 3rem; margin-bottom: 20px; color: var(--text-muted); transition: 0.3s; }
+.bento-card:hover .bento-icon { color: var(--primary); transform: scale(1.1); }
+
+/* --- 5. SOCIAL DOCK (Minimal) --- */
+.social-dock {
+    display: inline-flex; gap: 15px; padding: 10px 20px;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+    border-radius: 50px; margin-top: 50px;
 }
+.dock-icon { 
+    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); text-decoration: none; font-size: 1.2rem;
+    transition: 0.3s; border-radius: 50%;
+}
+.dock-icon:hover { background: rgba(255,255,255,0.1); color: white; }
+
+/* --- UTILS --- */
+.swiper { width: 100%; height: 400px; margin-bottom: 50px; }
+.swiper-slide { width: 250px; border-radius: 12px; overflow: hidden; opacity: 0.5; transition: 0.3s; }
+.swiper-slide-active { opacity: 1; transform: scale(1.1); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+.card-bg-video { width: 100%; height: 100%; object-fit: cover; }
+.cursor-dot { width: 8px; height: 8px; background: white; position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; }
+footer { padding: 50px; text-align: center; color: var(--text-muted); border-top: 1px solid var(--glass-border); }
+.search-container, .admin-panel-container { display: none; position: fixed; top: 100px; right: 50px; background: #111; padding: 20px; border: 1px solid #333; border-radius: 12px; z-index: 200; }
+.search-input { background: #222; border: none; padding: 10px; color: white; width: 200px; outline: none; border-radius: 6px; }
