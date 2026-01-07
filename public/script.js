@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initThreeJS();
     checkAuth();
     loadFeaturedMovies();
-    loadShowcase(); // ✅ FIXED TEXT LOADING
+    loadShowcase();
     loadMarqueeText();
     loadSocialLinks();
     initMagneticButtons();
@@ -20,29 +20,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2000);
 });
 
-// ✅ LOAD SHOWCASE (Fix: Loading Real Text)
 async function loadShowcase() {
     const container = document.getElementById('showcase-container');
-    const colors = ['#00f7ff', '#ff0055', '#bc13fe', '#00ff00']; // Neon Colors
+    const colors = ['#ff0055', '#bc13fe', '#00f7ff', '#ff0055']; // Pink/Purple Neons
     
-    // 4 Files Load
     for(let i=1; i<=4; i++) {
         try {
-            // 1. Fetch Text File (image/1.txt)
             const txtRes = await fetch(`image/${i}.txt`);
-            let desc = "Loading description...";
-            if(txtRes.ok) desc = await txtRes.text(); // असली टेक्स्ट
+            let desc = "Loading...";
+            if(txtRes.ok) desc = await txtRes.text();
             
-            const imgSrc = `image/image${i}.jpg`; // असली इमेज
+            const imgSrc = `image/image${i}.jpg`;
             const color = colors[i-1];
 
             const row = document.createElement('div');
-            row.className = `showcase-row ${i % 2 === 0 ? 'reverse' : ''}`;
+            // Remove 'reverse' logic here because CSS handles it with nth-child
+            row.className = 'showcase-row';
             row.style.setProperty('--neon-color', color);
             
             row.innerHTML = `
                 <div class="showcase-img-box">
-                    <img src="${imgSrc}" onerror="this.src='https://via.placeholder.com/300x450'">
+                    <img src="${imgSrc}" onerror="this.src='https://via.placeholder.com/280x400'">
                 </div>
                 <div class="showcase-text">
                     <h2 style="color:${color}">FEATURE ${i}</h2>
@@ -54,22 +52,31 @@ async function loadShowcase() {
         } catch(e) { console.log('Error loading item', i); }
     }
 
-    // Scroll Animation Observer
+    // ✅ SLIDE IN/OUT LOGIC (Intersection Observer)
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if(entry.isIntersecting) entry.target.classList.add('visible');
+            if(entry.isIntersecting) {
+                // Screen par aate hi visible
+                entry.target.classList.add('visible');
+            } else {
+                // Screen se jaate hi blur aur wapas side me (Exit Animation)
+                entry.target.classList.remove('visible');
+            }
         });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.2 }); // 20% dikhte hi trigger hoga
 
     document.querySelectorAll('.showcase-row').forEach(row => observer.observe(row));
 }
 
-// 3D Background Logic
+// 3D Background (Pink Theme)
 function initThreeJS() {
     const container = document.getElementById('threejs-canvas');
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x050508);
-    scene.fog = new THREE.FogExp2(0x050508, 0.002);
+    
+    // ✅ PINK BACKGROUND
+    scene.background = new THREE.Color(0x1f0b18); 
+    scene.fog = new THREE.FogExp2(0x1f0b18, 0.002);
+
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 50;
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -78,9 +85,17 @@ function initThreeJS() {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     container.appendChild(renderer.domElement);
 
-    const ambientLight = new THREE.AmbientLight(0x222222); scene.add(ambientLight);
-    const blueLight = new THREE.PointLight(0x00f7ff, 2, 100); blueLight.position.set(30, 30, 30); scene.add(blueLight);
-    const pinkLight = new THREE.PointLight(0xff0055, 2, 100); pinkLight.position.set(-30, -30, 20); scene.add(pinkLight);
+    // ✅ PINK LIGHTS
+    const ambientLight = new THREE.AmbientLight(0x442233); // reddish ambient
+    scene.add(ambientLight);
+    
+    const pinkLight = new THREE.PointLight(0xff0055, 2, 100); 
+    pinkLight.position.set(30, 30, 30); 
+    scene.add(pinkLight);
+    
+    const purpleLight = new THREE.PointLight(0xbc13fe, 2, 100); 
+    purpleLight.position.set(-30, -30, 20); 
+    scene.add(purpleLight);
 
     const materialGlass = new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: 0.1, roughness: 0.1, transmission: 0.2, clearcoat: 1.0 });
 
